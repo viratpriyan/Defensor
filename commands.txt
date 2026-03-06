@@ -1,0 +1,8 @@
+//terminal 1
+cd "c:\Users\aravi\.gemini\antigravity\scratch\women-safety-app\backend"
+npm run dev
+
+//terminal2
+cd "c:\Users\aravi\.gemini\antigravity\scratch\women-safety-app\Front end"
+npx expo start
+

@@ -1,0 +1,29 @@
+WOMEN's SAFETY APPLICATION - SYSTEM ARCHITECTURE DOCUMENT
+-------------------------------------------------------
+
+Below is the technical overview of the UI development, backend setup, and module integration for presentation and documentation purposes.
+
+1. UI DEVELOPMENT (FRONTEND)
+----------------------------
+* Technology Stack: React Native, Expo, and standard React Hooks (useState, useEffect) for state management.
+* Design Architecture: Cross-platform mobile development (iOS and Android compatible) using a component-based structure.
+* UI/UX Aesthetic: Modern, premium dark-mode interface featuring glassmorphism (semi-transparent overlays), vibrant accent colors (e.g., glowing red SOS button), and highly legible typography.
+* Navigation: Implemented using React Navigation (Stack and Tab navigators) to seamlessly move between Authentication, Home Dashboard, Safe Journey Route Planner, and Guardian Management screens.
+* Map Integration: Integrated 'react-native-maps' for live location plotting, using dynamic polylines to draw Safe, Fast, and Shortcut routes simultaneously.
+
+2. BACKEND SETUP
+----------------
+* Technology Stack: Node.js with Express.js framework for handling HTTP requests and RESTful API routing.
+* Database & Auth: MongoDB (or relevant NoSQL database) for storing user profiles and emergency contacts. Authentication is secured using JSON Web Tokens (JWT) and Firebase integration for cloud messaging or supplementary auth services.
+* Core Services: 
+  - Auth Controller: Handles secure login, registration, and session token generation.
+  - Emergency Controller: Manages the dispatching of SOS alerts and SMS/contact notifications.
+  - Location Controller: Processes live GPS coordinates from the user's device to update server state and broadcast to guardians.
+* Security: Endpoints are protected via custom authentication middleware that verifies JWT tokens before granting access to sensitive routes.
+
+3. MODULE INTEGRATION
+---------------------
+* Frontend-Backend Communication: The React Native frontend communicates with the Node.js backend entirely via RESTful API endpoints using 'fetch' or standard HTTP clients. Authentication tokens are passed in the headers of protected requests.
+* Map Service Integration: The mapService.js module acts as a bridge to external mapping APIs (OpenStreetMap/OSRM). It fetches raw coordinate data (polylines, duration, distance) based on the user's GPS position and destination.
+* AI/ML Analysis Integration: Raw route data fetched from the Map Service is piped into the simulated AI/ML component (routeAnalyzerAI.js). This module extracts features (pace, complexity) to dynamically assign Safety Scores and Traffic Levels to each route before passing the structured data back to the UI framework for rendering.
+* SOS Trigger Integration: Tapping the SOS button on the UI instantly invokes a React hook (useEmergencyTrigger), which simultaneously activates the local UI alarm state and fires a critical POST request to the backend Emergency Controller to dispatch alerts.
